@@ -4,15 +4,38 @@
 # --> You may need to establish a connection to your localhost db here
 
 # 3. create the movies_db
+create database if not exists movies_db;
 
 # 4. use the movies_db
+use movies_db;
 
 # 5. drop the table(s) to which no other tables are dependent (none at first)
+drop table if exists movies;
+drop table if exists directors;
 
 # 6. map the json movie properties to movies table columns
 # --> start with just a movies table with all the columns found in the movie json properties
+create table if not exists directors
+(
+id int unsigned not null auto_increment primary key,
+name varchar(120)
+);
+
+create table if not exists movies
+(
+    id       int unsigned not null auto_increment primary key,
+    title    varchar(120),
+    rating   char(1),
+    year     char(4),
+    poster   text,
+    plot     text,
+    director_id int unsigned not null,
+    foreign key (director_id) references directors(id)
+);
 
 # 6a. Run the script to make sure it works
+describe movies;
+describe directors;
 
 # 7. refactor to extract the directors to a new table with just an id and name
 # --> change the movies table to reference the directors table via Foreign Key
