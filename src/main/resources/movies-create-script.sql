@@ -45,6 +45,53 @@ describe directors;
 
 # 9. RUN IT!
 
+create table if not exists genres
+(
+    id int unsigned not null auto_increment primary key,
+    name varchar(255)
+);
+
+describe genres;
+
+create table if not exists movie_genre
+(
+    movie_id int unsigned not null,
+    genre_id int unsigned not null,
+    foreign key (movie_id) references movies(id),
+    foreign key (genre_id) references genres(id)
+);
+
+describe movie_genre;
+
+create table if not exists actors
+(
+    id int unsigned not null auto_increment primary key,
+    name varchar(255)
+);
+
+describe actors;
+
+create table if not exists movie_actor
+(
+    movie_id int unsigned not null,
+    actor_id int unsigned not null,
+    foreign key (movie_id) references movies(id),
+    foreign key (actor_id) references actors(id)
+);
+
+describe movie_actor;
+
+
+
+# create a genres table with two columns: id and name
+
+# create a many-to-many relationship b/t movies and genres by creating a movie_genre table.
+# --> It needs to only contain a movie_id and genre_id (be sure to foreign key those to their respective tables)
+
+# create create an actors table with two columns: id and name
+
+# create a many-to-many relationship b/t movies and actors by creating movie_actor table.
+# --> It needs to only contain a movie_id and actor_id (be sure to foreign key those to their respective tables)
 
 
 
