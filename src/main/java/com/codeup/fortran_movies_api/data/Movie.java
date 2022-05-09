@@ -9,19 +9,17 @@ public class Movie {
     private String director;
     private String actors;
     private String imdbId;
-    private String movieser;
     private String genre;
     private String plot;
 
     /* -------- CONSTRUCTOR -------- */
-    public Movie(int id, String title, String year, String director, String actors, String imdbId, String movieser, String genre, String plot) {
+    public Movie(int id, String title, String year, String director, String actors, String imdbId, String genre, String plot) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.director = director;
         this.actors = actors;
         this.imdbId = imdbId;
-        this.movieser = movieser;
         this.genre = genre;
         this.plot = plot;
     }
@@ -78,14 +76,6 @@ public class Movie {
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
-    }
-
-    public String getMovieser() {
-        return movieser;
-    }
-
-    public void setMovieser(String movieser) {
-        this.movieser = movieser;
     }
 
     public String getGenre() {
