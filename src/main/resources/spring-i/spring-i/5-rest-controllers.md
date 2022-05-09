@@ -102,12 +102,12 @@ To use it, simply place `@GetMapping` over your desired REST controller *method*
 
 ```JAVA
 @GetMapping
-private List<movies> getAll() {
+private List<Movie> getAll() {
         ...
 }
 ```
 
-From this point, any valid `GET` request sent to `/api/movies` will be routed to `getMovies()`.
+From this point, any valid `GET` request sent to `/api/movies` will be routed to `getAll()`.
 
 ---
 
@@ -162,14 +162,14 @@ For more information on how to effectively use Swagger UI, [start here](https://
 We can also annotate additional path extensions for controller methods.
 
 For example, adding `@GetMapping("id")` on
-`moviesController.getMovies(...)` would allow a client to make a
+`moviesController.getBuyId(...)` would allow a client to make a
 `GET` request to `/api/movies/12`, with `12` being the ID of the movie to retrieve.
 
 Then, it is up to us to add a `@PathVariable` in front of a matching parameter of the associated controller method. 
 
 ```JAVA
 @GetMapping("id")
-public movies getById(@PathVariable Long id){
+public Movie getById(@PathVariable Long id){
         ...
 }
 ```
@@ -201,7 +201,7 @@ Using examples from above, create another `public` method in `moviesController` 
     You can use `Lombok` to create getters, setters, and constructors for you! 😮
 
 
-## Next Up: [Data Access](6-data-access-layer.md)
+## Next Up: [Rest Controllers, pt II](5b-rest-controllers-ii.md)
 
 
 
