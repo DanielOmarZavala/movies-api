@@ -94,8 +94,18 @@ public class Movie {
         this.plot = plot;
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", director='" + director + '\'' +
+                ", actors='" + actors + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                ", genre='" + genre + '\'' +
+                ", plot='" + plot + '\'' +
+                '}';
+    }
 }

@@ -4,6 +4,7 @@ import com.codeup.fortran_movies_api.data.Movie;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin //this is to help with local dev testing
 @RestController
@@ -15,6 +16,16 @@ public class MoviesController {
     @GetMapping("all") // Path becomes: /api/movies/all
     public ArrayList<Movie> getAll(){
         return moviesList;
+    }
+
+    // TODO: REVIEW getById METHOD FOR BETTER UNDERSTANDING
+    @GetMapping("{id}") // Define the path variable to use here
+    public Movie getById(@PathVariable long id) { // Actually use the path variable here by annotating a parameter with @PathVariable
+        return moviesList.stream().filter((movie) -> {
+                    return movie.getId() == id; // filter out non-matching movies
+                })
+                .findFirst() // isolate to first match
+                .orElse(null); // prevent errors by returning null... not the greatest practice, but it'll do for now
     }
 
     private ArrayList<Movie> setMovies() {
@@ -36,5 +47,25 @@ public class MoviesController {
                 "Dinosaurs must travel through unknown lands to find salvation."));
 
         return movies;
+    }
+
+
+
+    @PostMapping
+    public void create(@RequestBody Movie newMovie){
+//        System.out.println(newMovie);
+        moviesList.add(newMovie);
+    }
+
+//    @PostMapping
+//    public void create(@RequestBody Movie movie){
+//        System.out.println(movie);
+//    }
+
+    @PostMapping("all")
+    public void createAll(@RequestBody List<Movie> moviesToAdd){
+//        System.out.println(moviesToAdd);
+
+        moviesList.addAll(moviesToAdd);
     }
 }
