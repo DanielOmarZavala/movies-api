@@ -68,20 +68,4 @@ public class MoviesController {
 
         return movies;
     }
-
-
-
-//    @PostMapping
-//    public void create(@RequestBody Movie movie){
-//        System.out.println(movie);
-//    }
-
-    @PostMapping("all")
-    public void createAll(@RequestBody List<Movie> moviesToAdd){
-//        System.out.println(moviesToAdd);
-
-        moviesList.addAll(moviesToAdd);
-    }
-
-
 }
