@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MoviesRepository extends JpaRepository <Movie, Long>{
+public interface MoviesRepository extends JpaRepository <Movie, Integer>{
 
     // TODO: Spring Data is pretty neat in that it reads your method name and interprets how to build the actual implementation of the query!
     List<Movie> findByTitle(String title);
