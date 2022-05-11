@@ -1,5 +1,7 @@
 package com.codeup.fortran_movies_api.web;
 
+import com.codeup.fortran_movies_api.data.Director;
+import com.codeup.fortran_movies_api.data.DirectorsRepository;
 import com.codeup.fortran_movies_api.data.Movie;
 import com.codeup.fortran_movies_api.data.MoviesRepository;
 import org.springframework.http.HttpStatus;
@@ -15,9 +17,11 @@ import java.util.List;
 public class MoviesController {
 
     private final MoviesRepository moviesRepository;
+    private final DirectorsRepository directorsRepository;
 
-    public MoviesController(MoviesRepository moviesRepository) {
+    public MoviesController(MoviesRepository moviesRepository, DirectorsRepository directorsRepository) {
         this.moviesRepository = moviesRepository;
+        this.directorsRepository = directorsRepository;
     }
 
     // TODO: put the expected path out to the side of the method annotation
@@ -46,6 +50,11 @@ public class MoviesController {
         return moviesRepository.findByYearRange(startYear, endYear);
     }
 
+    @GetMapping("search/director")
+    public List<Director> getByDirector(@RequestParam("name") String directorName) {
+        return directorsRepository.findByName(directorName);
+    }
+
     @PostMapping // /api/movies POST
     public void create(@RequestBody Movie movie) {
         // add to our movies list (fake db)
@@ -60,16 +69,9 @@ public class MoviesController {
 
     // TODO: make a delete request method here!
     @DeleteMapping("{id}") // api/movies/{id} -> api/movies/3 DELETE
-    public void deleteById(@PathVariable Integer id) throws IOException {
+    public void deleteById(@PathVariable int id) throws IOException {
         try {
-
-            if (id == null) {
-                System.out.println("Sorry, you entered an invalid id...");
-            } else {
-                System.out.println("Successfully deleted: " + moviesRepository.findById(id));
-                moviesRepository.deleteById(id);
-            }
-
+            moviesRepository.deleteById(id);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Matching movie with ID: " + id);
         }

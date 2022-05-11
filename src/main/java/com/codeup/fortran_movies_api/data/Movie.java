@@ -3,7 +3,7 @@ package com.codeup.fortran_movies_api.data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="movies")
+@Table(name = "movies")
 public class Movie {
 
     @Id
@@ -13,16 +13,20 @@ public class Movie {
     private int id;
     private String title;
     private String year;
-    @ManyToOne
+    @ManyToOne // Many movies have the same director
     private Director director;
     private String plot;
+    private String poster;
+    private String rating;
 
     /* -------- CONSTRUCTOR -------- */
-    public Movie(int id, String title, String year, String director, String actors, String imdbId, String genre, String plot) {
+    public Movie(int id, String title, String year, String plot, String poster, String rating) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.plot = plot;
+        this.poster = poster;
+        this.rating = rating;
     }
 
     /* -------- EMPTY CONSTRUCTOR -------- */
@@ -55,29 +59,29 @@ public class Movie {
         this.year = year;
     }
 
-//    public String getDirector() {
-//        return director;
-//    }
-//
-//    public void setDirector(String director) {
-//        this.director = director;
-//    }
-//
-//    public String getActors() {
-//        return actors;
-//    }
-//
-//    public void setActors(String actors) {
-//        this.actors = actors;
-//    }
-//
-//    public String getGenre() {
-//        return genre;
-//    }
-//
-//    public void setGenre(String genre) {
-//        this.genre = genre;
-//    }
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 
     public String getPlot() {
         return plot;
@@ -94,10 +98,10 @@ public class Movie {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", year='" + year + '\'' +
-//                ", director='" + director + '\'' +
-//                ", actors='" + actors + '\'' +
-//                ", genre='" + genre + '\'' +
+                ", director=" + director.getName() +
                 ", plot='" + plot + '\'' +
+                ", poster='" + poster + '\'' +
+                ", rating='" + rating + '\'' +
                 '}';
     }
 }
