@@ -1,5 +1,7 @@
 package com.codeup.fortran_movies_api.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class Director {
     // TODO: How can we see the list of movies in a response?
     @OneToMany(mappedBy = "director") // 1 director can be associated with many movies
     // mappedBy indicates which field on the Movie POJO links the Director and Movie together
+    @JsonIgnoreProperties("director")
     private List<Movie> directedMovies;
 
 
@@ -41,6 +44,14 @@ public class Director {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Movie> getDirectedMovies() {
+        return directedMovies;
+    }
+
+    public void setDirectedMovies(List<Movie> directedMovies) {
+        this.directedMovies = directedMovies;
     }
 
     @Override

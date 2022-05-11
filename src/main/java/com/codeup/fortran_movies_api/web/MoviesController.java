@@ -52,6 +52,8 @@ public class MoviesController {
 
     @GetMapping("search/director")
     public List<Director> getByDirector(@RequestParam("name") String directorName) {
+        List<Director> directors = directorsRepository.findByName(directorName);
+
         return directorsRepository.findByName(directorName);
     }
 
@@ -65,6 +67,11 @@ public class MoviesController {
     public void createMany(@RequestBody List<Movie> movies) { // @RequestBody is very important to knowing how the Request's body maps
         // saveAll() lets you pass a collection as an argument and commit all the objects to the database
         moviesRepository.saveAll(movies); // addAll (on the Collection object) allows us to add all the elements from one collection to another in a single line
+    }
+
+    @PutMapping
+    public void updateOne(@RequestBody Movie movie){
+        moviesRepository.save(movie);
     }
 
     // TODO: make a delete request method here!
