@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin //this is to help with local dev testing
@@ -16,13 +14,14 @@ import java.util.List;
 @RequestMapping(value = "/api/movies", headers = "Accept=application/json")
 public class MoviesController {
 
-    private List<Movie> moviesList = setMovies();
     private final MoviesRepository moviesRepository;
 
     public MoviesController(MoviesRepository moviesRepository) {
         this.moviesRepository = moviesRepository;
     }
 
+    // TODO: put the expected path out to the side of the method annotation
+    //  -> this helps to keep track so we don't have to guess if methods conflict on the same path
     @GetMapping("all") // Path becomes: /api/movies/all
     public List<Movie> getAll() {
         return moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
@@ -40,7 +39,14 @@ public class MoviesController {
         return moviesRepository.findByTitle(title);
     }
 
-    @PostMapping
+    @GetMapping("search/year") // api/movies/search/year
+    public List<Movie> getByYearRange(@RequestParam("startYear") int startYear, @RequestParam("endYear") int endYear) {
+        // TODO: @RequestParam expects a query parameter in the request URL
+        //  to have a param matching what is in the annotation (ie: @RequestParam("startYear"))
+        return moviesRepository.findByYearRange(startYear, endYear);
+    }
+
+    @PostMapping // /api/movies POST
     public void create(@RequestBody Movie movie) {
         // add to our movies list (fake db)
         moviesRepository.save(movie);
@@ -48,39 +54,24 @@ public class MoviesController {
 
     @PostMapping("many")// /api/movies/many POST
     public void createMany(@RequestBody List<Movie> movies) { // @RequestBody is very important to knowing how the Request's body maps
-        System.out.println(movies.getClass());
-        moviesList.addAll(movies); // addAll (on the Collection object) allows us to add all the elements from one collection to another in a single line
+        // saveAll() lets you pass a collection as an argument and commit all the objects to the database
+        moviesRepository.saveAll(movies); // addAll (on the Collection object) allows us to add all the elements from one collection to another in a single line
     }
 
-    @DeleteMapping("{id}")
-    public void deleteById(@PathVariable int id, HttpServletResponse response) throws IOException {
+    // TODO: make a delete request method here!
+    @DeleteMapping("{id}") // api/movies/{id} -> api/movies/3 DELETE
+    public void deleteById(@PathVariable Integer id) throws IOException {
         try {
-            moviesRepository.deleteById(id);
+
+            if (id == null) {
+                System.out.println("Sorry, you entered an invalid id...");
+            } else {
+                System.out.println("Successfully deleted: " + moviesRepository.findById(id));
+                moviesRepository.deleteById(id);
+            }
+
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Matching movie with ID: " + id);
         }
-    }
-
-    // This utility method simply sets up and populates our sampleMovies backing field
-    // Will remove once we integrate with the database
-    private List<Movie> setMovies() {
-
-        List<Movie> movies = new ArrayList<>();
-
-//        movies.add(new Movie(2, "Pulp Fiction", "1994", "Quentin Tarantino",
-//                "Samuel L. Jackson, Uma Therman, Bruce Willis, John Travolta, Ving Rhames",
-//                "10", "action, drama, suspense, cult classic, crime",
-//                "Vincent Vega (John Travolta) and Jules Winnfield (Samuel L. Jackson) are hitmen with a penchant for philosophical discussions. " +
-//                        "In this ultra-hip, multi-strand crime movie, their storyline is interwoven with those of their boss, " +
-//                        "gangster Marsellus Wallace (Ving Rhames) ; his actress wife, Mia (Uma Thurman) ; " +
-//                        "struggling boxer Butch Coolidge (Bruce Willis) ; master fixer Winston Wolfe (Harvey Keitel) and a nervous pair of armed robbers, " +
-//                        "\"Pumpkin\" (Tim Roth) and \"Honey Bunny\" (Amanda Plummer)."));
-//
-//        movies.add(new Movie(2, "Land Before Time", "1990", "Jack Foreman",
-//                "Dwane Johnson",
-//                "3", "drama",
-//                "Dinosaurs must travel through unknown lands to find salvation."));
-
-        return movies;
     }
 }

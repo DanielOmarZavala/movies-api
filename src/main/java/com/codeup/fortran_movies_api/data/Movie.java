@@ -13,9 +13,8 @@ public class Movie {
     private int id;
     private String title;
     private String year;
-//    private String director;
-//    private String actors;
-//    private String genre;
+    @ManyToOne
+    private Director director;
     private String plot;
 
     /* -------- CONSTRUCTOR -------- */
@@ -23,9 +22,6 @@ public class Movie {
         this.id = id;
         this.title = title;
         this.year = year;
-//        this.director = director;
-//        this.actors = actors;
-//        this.genre = genre;
         this.plot = plot;
     }
 
