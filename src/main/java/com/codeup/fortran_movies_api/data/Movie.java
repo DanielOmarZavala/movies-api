@@ -26,8 +26,14 @@ public class Movie {
 
     // TODO: We need to defined the same many-to-many relationship, but from the Movie side (with a little less annotation fun)
     @ManyToMany(mappedBy = "movies") // <- maps to the Genre class' movies property
-    @JsonIgnoreProperties("movies") // <- keeps Jackson from making a list of genres with a list of movies with a list of genres with a list of movies...
+    @JsonIgnoreProperties("movies")
+    // <- keeps Jackson from making a list of genres with a list of movies with a list of genres with a list of movies...
     private List<Genre> genres;
+
+    @ManyToMany(mappedBy = "movies") // <- maps to the Genre class' movies property
+    @JsonIgnoreProperties("movies")
+    // <- keeps Jackson from making a list of genres with a list of movies with a list of genres with a list of movies...
+    private List<Actor> actors;
 
     /* -------- CONSTRUCTOR -------- */
     public Movie(int id, String title, String year, String plot, String poster, String rating) {
@@ -107,6 +113,14 @@ public class Movie {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 
     @Override

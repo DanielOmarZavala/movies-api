@@ -110,6 +110,18 @@ describe movie_actor;
 #     PRIMARY KEY (id)
 # );
 
+insert into movies(title, rating, year, poster, plot, director_id)
+values ('Java the Movie', "5", "1982", "as;ldkfd;lfkjjjjddghhgsaljk", "millions of elite space warrior instances take over the galaxy.", 1);
+
+select * from movies;
+
+
+
+
+
+
+
+
 
 insert into genres(name)
 values ('Thriller'),
@@ -122,3 +134,20 @@ values ('Thriller'),
 describe genres;
 
 select * from genres;
+
+
+insert into actors(name)
+values ('Thomas Saenz'),
+       ('Christopher Zavala'),
+       ('Damon McGowan');
+
+describe actors;
+
+insert into directors(name)
+values ('Jack Jackie'),
+       ('Bobby Bob'),
+       ('Damon McGowan');
+
+describe directors;
+
+select * from directors;

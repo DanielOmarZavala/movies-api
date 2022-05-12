@@ -1,9 +1,6 @@
 package com.codeup.fortran_movies_api.web;
 
-import com.codeup.fortran_movies_api.data.Director;
-import com.codeup.fortran_movies_api.data.DirectorsRepository;
-import com.codeup.fortran_movies_api.data.Movie;
-import com.codeup.fortran_movies_api.data.MoviesRepository;
+import com.codeup.fortran_movies_api.data.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,10 +15,14 @@ public class MoviesController {
 
     private final MoviesRepository moviesRepository;
     private final DirectorsRepository directorsRepository;
+    private final GenresRepository genresRepository;
+    private final ActorsRepository actorsRepository;
 
-    public MoviesController(MoviesRepository moviesRepository, DirectorsRepository directorsRepository) {
+    public MoviesController(MoviesRepository moviesRepository, DirectorsRepository directorsRepository, GenresRepository genresRepository, ActorsRepository actorsRepository) {
         this.moviesRepository = moviesRepository;
         this.directorsRepository = directorsRepository;
+        this.genresRepository = genresRepository;
+        this.actorsRepository = actorsRepository;
     }
 
     // TODO: put the expected path out to the side of the method annotation
@@ -51,8 +52,18 @@ public class MoviesController {
     }
 
     @GetMapping("search/director")
-    public List<Director> getByDirector(@RequestParam("name") String directorName) {
+    public List<Director> getByDirector(@RequestParam("directorName") String directorName) {
         return directorsRepository.findByName(directorName);
+    }
+
+    @GetMapping("search/genre")
+    public List<Genre> getByGenre(@RequestParam("genres") String genres) {
+        return genresRepository.findByName(genres);
+    }
+
+    @GetMapping("search/actor")
+    public List<Actor> getByActor(@RequestParam("actorName") String actorName) {
+        return actorsRepository.findByName(actorName);
     }
 
     @PostMapping // /api/movies POST
