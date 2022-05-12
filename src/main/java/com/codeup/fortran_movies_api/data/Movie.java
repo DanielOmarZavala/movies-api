@@ -16,12 +16,13 @@ public class Movie {
     private int id;
     private String title;
     private String year;
-    @ManyToOne // Many movies have the same director
-    @JsonIgnoreProperties("directedMovies")
-    private Director director;
     private String plot;
     private String poster;
     private String rating;
+
+    @ManyToOne // Many movies have the same director
+    @JsonIgnoreProperties("directedMovies")
+    private Director director;
 
     // TODO: We need to defined the same many-to-many relationship, but from the Movie side (with a little less annotation fun)
     @ManyToMany(mappedBy = "movies") // <- maps to the Genre class' movies property

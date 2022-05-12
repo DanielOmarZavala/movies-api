@@ -54,7 +54,7 @@ public class MoviesController {
     public List<Director> getByDirector(@RequestParam("name") String directorName) {
         List<Director> directors = directorsRepository.findByName(directorName);
 
-        return directorsRepository.findByName(directorName);
+        return directors;
     }
 
     @PostMapping // /api/movies POST
