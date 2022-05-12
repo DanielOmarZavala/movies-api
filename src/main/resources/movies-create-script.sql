@@ -111,4 +111,14 @@ describe movie_actor;
 # );
 
 
+insert into genres(name)
+values ('Thriller'),
+       ('Horror'),
+       ('Romance'),
+       ('Drama'),
+       ('Comedy'),
+       ('SciFi');
 
+describe genres;
+
+select * from genres;
