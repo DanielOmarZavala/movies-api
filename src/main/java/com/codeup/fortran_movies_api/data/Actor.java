@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "genres")
+@Table(name = "actors")
 public class Actor {
 
     @Id
@@ -17,7 +17,7 @@ public class Actor {
             joinColumns =
             @JoinColumn(name = "actor_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "movie_id", referencedColumnName = "id")
+            @JoinColumn(name = "movie_id")
     )
 
     private List<Movie> movies;

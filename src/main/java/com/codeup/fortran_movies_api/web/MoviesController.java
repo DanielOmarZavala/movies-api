@@ -50,7 +50,7 @@ public class MoviesController {
                     movie.getGenres().stream().map(Genre::getName).collect(Collectors.joining(", ")),
                     movie.getDirector().getName(),
                     movie.getPlot(),
-                    movie.getActors()));
+                    movie.getActors().stream().map(Actor::getName).collect(Collectors.joining(", "))));
         }
 
         return movieDtos;
@@ -88,6 +88,7 @@ public class MoviesController {
     public void create(@RequestBody Movie movie) {
         // add to our movies list (fake db)
         moviesRepository.save(movie);
+//        Movie movieToAdd = new Movie()
     }
 
     @PostMapping("many")// /api/movies/many POST

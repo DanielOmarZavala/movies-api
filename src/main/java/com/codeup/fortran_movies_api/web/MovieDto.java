@@ -7,16 +7,6 @@ import java.util.List;
 public class MovieDto {
 
     /* -------- FIELDS -------- */
-//    private int id;
-//    private String actors;
-//    private String director;
-//    private String genre;
-//    private String plot;
-//    private String poster;
-//    private String rating;
-//    private String title;
-//    private String year;
-
     private int id;
     private String title;
     private String rating;
@@ -25,10 +15,10 @@ public class MovieDto {
     private String genre;
     private String director;
     private String plot;
-    private List<Actor> actors;
+    private String actors;
 
     /* -------- CONSTRUCTORS -------- */
-    public MovieDto(int id, String title, String rating, String poster, String year, String genre, String director, String plot, List<Actor> actors) {
+    public MovieDto(int id, String title, String rating, String poster, String year, String genre, String director, String plot, String actors) {
         this.id = id;
         this.title = title;
         this.rating = rating;
@@ -52,11 +42,11 @@ public class MovieDto {
         this.id = id;
     }
 
-    public List<Actor> getActors() {
+    public String getActors() {
         return actors;
     }
 
-    public void setActors(List<Actor> actors) {
+    public void setActors(String actors) {
         this.actors = actors;
     }
 
@@ -120,14 +110,14 @@ public class MovieDto {
     public String toString() {
         return "MovieDto{" +
                 "id=" + id +
-                ", actors='" + actors + '\'' +
-                ", director='" + director + '\'' +
-                ", genre='" + genre + '\'' +
-                ", plot='" + plot + '\'' +
-                ", poster='" + poster + '\'' +
-                ", rating='" + rating + '\'' +
                 ", title='" + title + '\'' +
+                ", rating='" + rating + '\'' +
+                ", poster='" + poster + '\'' +
                 ", year='" + year + '\'' +
+                ", genre='" + genre + '\'' +
+                ", director='" + director + '\'' +
+                ", plot='" + plot + '\'' +
+                ", actors='" + actors + '\'' +
                 '}';
     }
 }

@@ -17,20 +17,20 @@ drop table if exists directors;
 # --> start with just a movies table with all the columns found in the movie json properties
 create table if not exists directors
 (
-id int unsigned not null auto_increment primary key,
-name varchar(120)
+    id   int unsigned not null auto_increment primary key,
+    name varchar(120)
 );
 
 create table if not exists movies
 (
-    id       int unsigned not null auto_increment primary key,
-    title    varchar(120),
-    rating   char(1),
-    year     char(4),
-    poster   text,
-    plot     text,
+    id          int unsigned not null auto_increment primary key,
+    title       varchar(120),
+    rating      char(1),
+    year        char(4),
+    poster      text,
+    plot        text,
     director_id int unsigned not null,
-    foreign key (director_id) references directors(id)
+    foreign key (director_id) references directors (id)
 );
 
 # 6a. Run the script to make sure it works
@@ -47,7 +47,7 @@ describe directors;
 
 create table if not exists genres
 (
-    id int unsigned not null auto_increment primary key,
+    id   int unsigned not null auto_increment primary key,
     name varchar(255)
 );
 
@@ -57,15 +57,15 @@ create table if not exists movie_genre
 (
     movie_id int unsigned not null,
     genre_id int unsigned not null,
-    foreign key (movie_id) references movies(id),
-    foreign key (genre_id) references genres(id)
+    foreign key (movie_id) references movies (id),
+    foreign key (genre_id) references genres (id)
 );
 
 describe movie_genre;
 
 create table if not exists actors
 (
-    id int unsigned not null auto_increment primary key,
+    id   int unsigned not null auto_increment primary key,
     name varchar(255)
 );
 
@@ -75,8 +75,8 @@ create table if not exists movie_actor
 (
     movie_id int unsigned not null,
     actor_id int unsigned not null,
-    foreign key (movie_id) references movies(id),
-    foreign key (actor_id) references actors(id)
+    foreign key (movie_id) references movies (id),
+    foreign key (actor_id) references actors (id)
 );
 
 describe movie_actor;
@@ -94,9 +94,6 @@ describe movie_actor;
 # --> It needs to only contain a movie_id and actor_id (be sure to foreign key those to their respective tables)
 
 
-
-
-
 # CREATE DATABASE IF NOT EXISTS movies_db;
 #
 # USE movies_db;
@@ -111,9 +108,12 @@ describe movie_actor;
 # );
 
 insert into movies(title, rating, year, poster, plot, director_id)
-values ('Java the Movie', "5", "1982", "as;ldkfd;lfkjjjjddghhgsaljk", "millions of elite space warrior instances take over the galaxy.", 1);
+values ('Java the Movie', "5", "1982",
+        "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/0a/8cd7f1b14344618b75142593bc7af8/JavaCupLogo800x800.png?auto=format%2Ccompress&dpr=1",
+        "millions of elite space warrior instances take over the galaxy.", 1);
 
-select * from movies;
+select *
+from movies;
 
 
 insert into genres(name)
@@ -126,17 +126,22 @@ values ('Thriller'),
 
 describe genres;
 
-select * from genres;
+select *
+from genres;
 
 
 insert into movie_genre(genre_id, movie_id)
 values (1, 6),
-       (2,6),
-       (3, 6);
+       (2, 6),
+       (3, 6),
+       (1, 7),
+       (2, 7),
+       (3, 7);
 
 describe movie_genre;
 
-select * from movie_genre;
+select *
+from movie_genre;
 
 
 insert into actors(name)
@@ -146,16 +151,21 @@ values ('Thomas Saenz'),
 
 describe actors;
 
-select * from actors;
+select *
+from actors;
 
 insert into movie_actor(actor_id, movie_id)
 values (1, 6),
        (2, 6),
-       (3, 6);
+       (3, 6),
+       (1, 7),
+       (2, 7),
+       (3, 7);
 
 describe movie_actor;
 
-select * from movie_actor;
+select *
+from movie_actor;
 
 
 insert into directors(name)
@@ -165,6 +175,7 @@ values ('Jack Jackie'),
 
 describe directors;
 
-select * from directors;
+select *
+from directors;
 
 

@@ -32,7 +32,7 @@ public class Movie {
 
     @ManyToMany(mappedBy = "movies") // <- maps to the Genre class' movies property
     @JsonIgnoreProperties("movies")
-    // <- keeps Jackson from making a list of genres with a list of movies with a list of genres with a list of movies...
+    // <- keeps Jackson from making a list of actors with a list of movies with a list of actors with a list of movies...
     private List<Actor> actors;
 
     /* -------- CONSTRUCTOR -------- */
