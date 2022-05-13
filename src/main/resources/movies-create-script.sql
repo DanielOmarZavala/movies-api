@@ -116,13 +116,6 @@ values ('Java the Movie', "5", "1982", "as;ldkfd;lfkjjjjddghhgsaljk", "millions 
 select * from movies;
 
 
-
-
-
-
-
-
-
 insert into genres(name)
 values ('Thriller'),
        ('Horror'),
@@ -136,12 +129,25 @@ describe genres;
 select * from genres;
 
 
+insert into movie_genre(genre_id, movie_id)
+values (1, 6),
+       (2,6),
+       (3, 6);
+
+describe movie_genre;
+
+select * from movie_genre;
+
+
 insert into actors(name)
 values ('Thomas Saenz'),
        ('Christopher Zavala'),
        ('Damon McGowan');
 
 describe actors;
+
+select * from actors;
+
 
 insert into directors(name)
 values ('Jack Jackie'),
@@ -151,3 +157,5 @@ values ('Jack Jackie'),
 describe directors;
 
 select * from directors;
+
+

@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin //this is to help with local dev testing
 @RestController
@@ -25,17 +27,33 @@ public class MoviesController {
         this.actorsRepository = actorsRepository;
     }
 
-    // TODO: put the expected path out to the side of the method annotation
-    //  -> this helps to keep track so we don't have to guess if methods conflict on the same path
-    @GetMapping("all") // Path becomes: /api/movies/all
-    public List<Movie> getAll() {
-        return moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
-    }
-
     // /api/movies/3 <- 3 is the path variable for id
     @GetMapping("{id}") // Define the path variable to use here
     public Movie getById(@PathVariable int id) { // Actually use the path variable here by annotating a parameter with @PathVariable
         return moviesRepository.findById(id).orElse(null); // prevent errors by returning null... not the greatest practice, but it'll do for now
+    }
+
+    // TODO: put the expected path out to the side of the method annotation
+    //  -> this helps to keep track so we don't have to guess if methods conflict on the same path
+    @GetMapping("all") // /api/movies/all
+    public List<MovieDto> getAll() {
+
+        List<Movie> movieEntities = moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
+        List<MovieDto> movieDtos = new ArrayList<>();
+
+        for (Movie movie : movieEntities) {
+            movieDtos.add(new MovieDto(movie.getId(),
+                    movie.getTitle(),
+                    movie.getRating(),
+                    movie.getPoster(),
+                    movie.getYear(),
+                    movie.getGenres().stream().map(Genre::getName).collect(Collectors.joining(", ")),
+                    movie.getDirector().getName(),
+                    movie.getPlot()));
+//                    movie.getActors()));
+        }
+
+        return movieDtos;
     }
 
     @GetMapping("search") // /api/movies/search?title=<movieTitle>
@@ -79,7 +97,7 @@ public class MoviesController {
     }
 
     @PutMapping
-    public void updateOne(@RequestBody Movie movie){
+    public void updateOne(@RequestBody Movie movie) {
         moviesRepository.save(movie);
     }
 
