@@ -25,10 +25,10 @@ public class MovieDto {
     private String genre;
     private String director;
     private String plot;
-    private String actors;
+    private List<Actor> actors;
 
     /* -------- CONSTRUCTORS -------- */
-    public MovieDto(int id, String title, String rating, String poster, String year, String genre, String director, String plot) {
+    public MovieDto(int id, String title, String rating, String poster, String year, String genre, String director, String plot, List<Actor> actors) {
         this.id = id;
         this.title = title;
         this.rating = rating;
@@ -37,7 +37,7 @@ public class MovieDto {
         this.genre = genre;
         this.director = director;
         this.plot = plot;
-//        this.actors = actors;
+        this.actors = actors;
     }
 
     public MovieDto() {
@@ -52,13 +52,13 @@ public class MovieDto {
         this.id = id;
     }
 
-//    public String getActors() {
-//        return actors;
-//    }
-//
-//    public void setActors(String actors) {
-//        this.actors = actors;
-//    }
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
     public String getDirector() {
         return director;

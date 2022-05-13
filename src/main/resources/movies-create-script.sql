@@ -148,6 +148,15 @@ describe actors;
 
 select * from actors;
 
+insert into movie_actor(actor_id, movie_id)
+values (1, 6),
+       (2, 6),
+       (3, 6);
+
+describe movie_actor;
+
+select * from movie_actor;
+
 
 insert into directors(name)
 values ('Jack Jackie'),

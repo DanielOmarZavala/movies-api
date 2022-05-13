@@ -49,8 +49,8 @@ public class MoviesController {
                     movie.getYear(),
                     movie.getGenres().stream().map(Genre::getName).collect(Collectors.joining(", ")),
                     movie.getDirector().getName(),
-                    movie.getPlot()));
-//                    movie.getActors()));
+                    movie.getPlot(),
+                    movie.getActors()));
         }
 
         return movieDtos;
