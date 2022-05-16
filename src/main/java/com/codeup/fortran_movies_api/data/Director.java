@@ -21,9 +21,12 @@ public class Director {
     @JsonIgnoreProperties("director")
     private List<Movie> directedMovies;
 
-
     public Director(int id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Director(String name) {
         this.name = name;
     }
 

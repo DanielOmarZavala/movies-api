@@ -45,6 +45,14 @@ public class Movie {
         this.rating = rating;
     }
 
+    public Movie(String title, String year, String plot, String poster, String rating) {
+        this.title = title;
+        this.year = year;
+        this.plot = plot;
+        this.poster = poster;
+        this.rating = rating;
+    }
+
     /* -------- EMPTY CONSTRUCTOR -------- */
     public Movie() {
     }

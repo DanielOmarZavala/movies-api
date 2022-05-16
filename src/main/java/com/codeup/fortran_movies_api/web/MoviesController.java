@@ -74,10 +74,10 @@ public class MoviesController {
         return directorsRepository.findByName(directorName);
     }
 
-    @GetMapping("search/genre")
-    public List<Genre> getByGenre(@RequestParam("genres") String genres) {
-        return genresRepository.findByName(genres);
-    }
+//    @GetMapping("search/genre")
+//    public List<Genre> getByGenre(@RequestParam("genres") String genres) {
+//        return genresRepository.findByName(genres);
+//    }
 
     @GetMapping("search/actor")
     public List<Actor> getByActor(@RequestParam("actorName") String actorName) {
@@ -85,10 +85,44 @@ public class MoviesController {
     }
 
     @PostMapping // /api/movies POST
-    public void create(@RequestBody Movie movie) {
+    public void create(@RequestBody MovieDto movieDto) {
         // add to our movies list (fake db)
-        moviesRepository.save(movie);
-//        Movie movieToAdd = new Movie()
+//        moviesRepository.save(movie);
+        Movie movieToAdd = new Movie(
+                movieDto.getTitle(),
+                movieDto.getYear(),
+                movieDto.getPlot(),
+                movieDto.getPoster(),
+                movieDto.getRating()
+//                movieDto.getGenre(),
+//                movieDto.getDirector(),
+//                movieDto.getActors()
+        );
+
+        List<Director> directorsInDb = directorsRepository.findByName(movieDto.getDirector());
+        if (directorsInDb.isEmpty()) {
+            Director newDirector = new Director(movieDto.getDirector());
+            movieToAdd.setDirector(directorsRepository.save(newDirector));
+        } else {
+            movieToAdd.setDirector(directorsInDb.get(0));
+        }
+
+        String[] genres = movieDto.getGenre().split(", ");
+        List<Genre> movieGenres = new ArrayList<>();
+        for (String genre : genres) {
+            Genre genreInDb = genresRepository.findGenreByName(genre);
+            System.out.println(genreInDb);
+            if (genreInDb == null) {
+                Genre newGenre = new Genre(genre);
+                movieGenres.add(genresRepository.save(newGenre));
+            } else {
+                movieGenres.add(genreInDb);
+            }
+        }
+
+        movieToAdd.setGenres(movieGenres);
+
+        moviesRepository.save(movieToAdd);
     }
 
     @PostMapping("many")// /api/movies/many POST
