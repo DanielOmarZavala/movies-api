@@ -19,12 +19,14 @@ public class MoviesController {
     private final DirectorsRepository directorsRepository;
     private final GenresRepository genresRepository;
     private final ActorsRepository actorsRepository;
+    private final RatingsRepository ratingsRepository;
 
-    public MoviesController(MoviesRepository moviesRepository, DirectorsRepository directorsRepository, GenresRepository genresRepository, ActorsRepository actorsRepository) {
+    public MoviesController(MoviesRepository moviesRepository, DirectorsRepository directorsRepository, GenresRepository genresRepository, ActorsRepository actorsRepository, RatingsRepository ratingsRepository) {
         this.moviesRepository = moviesRepository;
         this.directorsRepository = directorsRepository;
         this.genresRepository = genresRepository;
         this.actorsRepository = actorsRepository;
+        this.ratingsRepository = ratingsRepository;
     }
 
     // /api/movies/3 <- 3 is the path variable for id
@@ -41,10 +43,12 @@ public class MoviesController {
         List<Movie> movieEntities = moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
         List<MovieDto> movieDtos = new ArrayList<>();
 
+
+        //TODO: Finish .getScore() functionality LN: 51
         for (Movie movie : movieEntities) {
             movieDtos.add(new MovieDto(movie.getId(),
                     movie.getTitle(),
-                    movie.getRating(),
+                    movie.getRating().getScore(),
                     movie.getPoster(),
                     movie.getYear(),
                     movie.getGenres().stream().map(Genre::getName).collect(Collectors.joining(", ")),
@@ -72,6 +76,11 @@ public class MoviesController {
     @GetMapping("search/director")
     public List<Director> getByDirector(@RequestParam("directorName") String directorName) {
         return directorsRepository.findByName(directorName);
+    }
+
+    @GetMapping("search/rating")
+    public List<Rating> getByRating(@RequestParam("rating") String rating) {
+        return ratingsRepository.findByRating(rating);
     }
 
 //    @GetMapping("search/genre")
