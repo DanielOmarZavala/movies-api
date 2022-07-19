@@ -131,6 +131,7 @@ public class Movie {
         this.actors = actors;
     }
 
+    //TODO: Finish .getScore() functionality LN: 144
     @Override
     public String toString() {
         return "Movie{" +
@@ -140,7 +141,7 @@ public class Movie {
                 ", director=" + director.getName() +
                 ", plot='" + plot + '\'' +
                 ", poster='" + poster + '\'' +
-                ", rating='" + rating + '\'' +
+                ", rating='" + rating.getScore() + '\'' +
                 '}';
     }
 }
