@@ -18,13 +18,16 @@ public class Movie {
     private String year;
     private String plot;
     private String poster;
-    private String rating;
+
+    @ManyToOne
+    @JsonIgnoreProperties("ratedMovies")
+    private Rating rating;
 
     @ManyToOne // Many movies have the same director
     @JsonIgnoreProperties("directedMovies")
     private Director director;
 
-    // TODO: We need to defined the same many-to-many relationship, but from the Movie side (with a little less annotation fun)
+    // TODO: We need to define the same many-to-many relationship, but from the Movie side (with a little less annotation fun)
     @ManyToMany(mappedBy = "movies") // <- maps to the Genre class' movies property
     @JsonIgnoreProperties("movies")
     // <- keeps Jackson from making a list of genres with a list of movies with a list of genres with a list of movies...
@@ -36,27 +39,24 @@ public class Movie {
     private List<Actor> actors;
 
     /* -------- CONSTRUCTOR -------- */
-    public Movie(int id, String title, String year, String plot, String poster, String rating) {
+    public Movie(int id, String title, String year, String plot, String poster) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.plot = plot;
         this.poster = poster;
-        this.rating = rating;
     }
 
-    public Movie(String title, String year, String plot, String poster, String rating) {
+    public Movie(String title, String year, String plot, String poster) {
         this.title = title;
         this.year = year;
         this.plot = plot;
         this.poster = poster;
-        this.rating = rating;
     }
 
     /* -------- EMPTY CONSTRUCTOR -------- */
     public Movie() {
     }
-
 
     /* -------- GETTERS & SETTERS -------- */
     public int getId() {
@@ -99,11 +99,11 @@ public class Movie {
         this.poster = poster;
     }
 
-    public String getRating() {
+    public Rating getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 
@@ -131,7 +131,6 @@ public class Movie {
         this.actors = actors;
     }
 
-    //TODO: Finish .getScore() functionality LN: 144
     @Override
     public String toString() {
         return "Movie{" +
@@ -141,7 +140,7 @@ public class Movie {
                 ", director=" + director.getName() +
                 ", plot='" + plot + '\'' +
                 ", poster='" + poster + '\'' +
-                ", rating='" + rating.getScore() + '\'' +
+                ", rating='" + rating.getRating() + '\'' +
                 '}';
     }
 }

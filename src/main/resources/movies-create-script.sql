@@ -81,6 +81,7 @@ create table if not exists movie_actor
 
 describe movie_actor;
 
+# TODO: create table if not exists ratings
 
 
 # create a genres table with two columns: id and name
@@ -177,5 +178,7 @@ describe directors;
 
 select *
 from directors;
+
+# TODO: insert into ratings(rating)
 
 

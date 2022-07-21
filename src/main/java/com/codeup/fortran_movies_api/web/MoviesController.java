@@ -43,12 +43,10 @@ public class MoviesController {
         List<Movie> movieEntities = moviesRepository.findAll(); // TODO: findAll() will return a list of objects and is provided by the JpaRepository
         List<MovieDto> movieDtos = new ArrayList<>();
 
-
-        //TODO: Finish .getScore() functionality LN: 51
         for (Movie movie : movieEntities) {
             movieDtos.add(new MovieDto(movie.getId(),
                     movie.getTitle(),
-                    movie.getRating().getScore(),
+                    movie.getRating().getRating(),
                     movie.getPoster(),
                     movie.getYear(),
                     movie.getGenres().stream().map(Genre::getName).collect(Collectors.joining(", ")),
@@ -101,12 +99,14 @@ public class MoviesController {
                 movieDto.getTitle(),
                 movieDto.getYear(),
                 movieDto.getPlot(),
-                movieDto.getPoster(),
-                movieDto.getRating()
+                movieDto.getPoster()
+//                movieDto.getRating(),
 //                movieDto.getGenre(),
 //                movieDto.getDirector(),
 //                movieDto.getActors()
         );
+
+        //TODO: Add conditionals for List<Rating> ratingsInDb
 
         List<Director> directorsInDb = directorsRepository.findByName(movieDto.getDirector());
         if (directorsInDb.isEmpty()) {
