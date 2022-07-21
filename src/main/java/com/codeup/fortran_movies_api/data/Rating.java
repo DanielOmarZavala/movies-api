@@ -9,9 +9,10 @@ import java.util.List;
 @Table(name="ratings")
 public class Rating {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String score;
+    private String rating;
 
     @OneToMany(mappedBy = "rating")
     @JsonIgnoreProperties("rating")
@@ -19,7 +20,11 @@ public class Rating {
 
     public Rating(int id, String score) {
         this.id = id;
-        this.score = score;
+        this.rating = score;
+    }
+
+    public Rating(String rating) {
+        this.rating = rating;
     }
 
     public Rating() {
@@ -33,13 +38,12 @@ public class Rating {
         this.id = id;
     }
 
-    //TODO: Finish getScore (RATING) functionality
-    public String getScore() {
-        return score;
+    public String getRating() {
+        return rating;
     }
 
-    public void setScore(String rating) {
-        this.score = rating;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public List<Movie> getRatedMovies() {
@@ -54,7 +58,7 @@ public class Rating {
     public String toString() {
         return "Rating{" +
                 "id=" + id +
-                ", rating=" + score +
+                ", rating=" + rating + '\'' +
                 '}';
     }
 }
